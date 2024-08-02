@@ -48,6 +48,9 @@ export default class AssetLoader {
   }
 
   async instantiateLoaders() {
+    try {
+
+
     // Dynamically import DRACOLoader and GLTFLoader
     const { DRACOLoader } = await import("three/addons/loaders/DRACOLoader.js");
     const { GLTFLoader } = await import("three/addons/loaders/GLTFLoader.js");
@@ -64,10 +67,15 @@ export default class AssetLoader {
 
     // Start loading assets
     this.startLoading();
+  } catch (error) {
+    console.error('Error instantiating loaders:', error);
+  }
   }
 
   // Loading GLB and GLTF files for the project
   startLoading() {
+    try {
+      
     this.assetsToLoad.forEach((asset) => {
       if (asset.type === "texture") {
         this.textureLoader.load(asset.path, (loadedAsset) => {
@@ -79,6 +87,9 @@ export default class AssetLoader {
         });
       }
     });
+  } catch (error) {
+    console.error('Error instantiating loaders:', error);
+  }
   }
 
   // Function for start button after progress
